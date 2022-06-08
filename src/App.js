@@ -1,12 +1,18 @@
-import React from "react";
 import Header from "./components/header";
 import Product from "./components/product";
 import classes from "./App.module.css";
+
+///>>> CONTEXT API <<<///
+import React, { useContext } from "react";
+import { ProductsContext } from "./context/products-context";
+
 ///>>> REDUX TOOLKIT <<<///
+// import React from "react";
 // import { useSelector } from "react-redux";
 
 ///>>> CUSTOM HOOK <<<///
-import { useStore } from "./custom-hook/store";
+// import React from "react";
+// import { useStore } from "./custom-hook/store";
 
 const data = [
   { id: "p1", title: "Product 1", stockCode: "001", price: 5 },
@@ -18,13 +24,16 @@ const data = [
 ];
 
 function App() {
-  const state = useStore()[0];
+  ///>>> CONTEXT API <<<///
+  const basketItems = useContext(ProductsContext).items;
 
   ///>>> REDUX TOOLKIT <<<///
   // const basketItems = useSelector((state) => state.cart.items);
 
   ///>>> CUSTOM HOOK <<<///
-  const basketItems = state.items;
+  // const state = useStore()[0];
+  // const basketItems = state.items;
+
   return (
     <div className={classes.container}>
       <Header />

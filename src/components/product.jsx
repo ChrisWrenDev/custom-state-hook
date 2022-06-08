@@ -1,16 +1,32 @@
-import React from "react";
 import classes from "./product.module.css";
+
+///>>> CONTEXT API <<<///
+import React, { useContext } from "react";
+import { ProductsContext } from "../context/products-context";
+
 ///>>> REDUX TOOLKIT <<<///
+// import React from "react";
 // import { useDispatch } from "react-redux";
 // import { cartActions } from "../store/cart-slice";
 
 ///>>> CUSTOM HOOK <<<///
-import { useStore } from "../custom-hook/store";
+// import React from "react";
+// import { useStore } from "../custom-hook/store";
 
 const Product = React.memo((props) => {
   console.log("RENDERING");
 
   const { id, title, price, stockCode, basketItem } = props;
+
+  ///>>> CONTEXT API <<<///
+  const { addProduct, removeProduct } = useContext(ProductsContext);
+
+  const addToCartHandler = () => {
+    addProduct({ id, title, price });
+  };
+  const removeFromCartHandler = () => {
+    removeProduct(id);
+  };
 
   ///>>> REDUX TOOLKIT <<<///
   // const dispatch = useDispatch();
@@ -24,15 +40,15 @@ const Product = React.memo((props) => {
   // };
 
   ///>>> CUSTOM HOOK <<<///
-  const dispatch = useStore(false)[1];
+  // const dispatch = useStore(false)[1];
 
-  const addToCartHandler = () => {
-    dispatch("ADD", { id, title, price, stockCode, basketItem });
-  };
+  // const addToCartHandler = () => {
+  //   dispatch("ADD", { id, title, price, stockCode, basketItem });
+  // };
 
-  const removeFromCartHandler = () => {
-    dispatch("REMOVE", id);
-  };
+  // const removeFromCartHandler = () => {
+  //   dispatch("REMOVE", id);
+  // };
 
   return (
     <div className={classes.product}>
